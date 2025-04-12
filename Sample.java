@@ -51,4 +51,34 @@ class Sample{
         }
     }
     /***************PROBLEM-3*************/
+
+    //TC:0(NLogN)
+//SC:0(1)
+    class Solution {
+        public String[] reorderLogFiles(String[] logs) {
+            if(logs.length==0 || logs==null){
+                return new String[]{};
+            }
+            Arrays.sort(logs,(log1,log2)->{
+                String[] array1=log1.split(" ",2);
+                String[] array2=log2.split(" ",2);
+                boolean digit1=Character.isDigit(array1[1].charAt(0));
+                boolean digit2=Character.isDigit(array2[1].charAt(0));
+                if(!digit1 && !digit2){
+                    int cmp=array1[1].compareTo(array2[1]);
+                    if(cmp==0){
+                        return array1[0].compareTo(array2[0]);
+                    }
+                    return cmp;
+                }else if(!digit1 && digit2){
+                    return -1;
+                }else if(digit1 && !digit2){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            });
+            return logs;
+        }
+    }
 }
